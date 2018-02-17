@@ -12,6 +12,7 @@ def get_weather():
     fileinput.close()
     city_name = input('输入城市：')
     city_code = city_dict[city_name]
+    
     #创建headers
     referer = 'http://www.weather.com.cn/weather1d/' + city_code + '.shtml'
     headers = {
@@ -20,16 +21,13 @@ def get_weather():
 	"Accept-Language":"zh-CN,zh;q=0.8,en;q=0.6",
 	"Host":"d1.weather.com.cn",
         }
-    #创建url
+    
     unix_time = str(int(time.time() * 1000))
-    url = 'http://d1.weather.com.cn/sk_2d/' + city_code + '.html?_=' + unix_time
-    #打开url
-    response = requests.get(url,headers = headers)
-    #将字符串切片
-    target = response.content.decode(encoding='utf-8')[12:]
-    #json得到字典
+    url = 'http://d1.weather.com.cn/sk_2d/' + city_code + '.html?_=' + unix_time 
+    response = requests.get(url, headers = headers) # 打开url
+    target = response.content.decode(encoding='utf-8')[12:] # 将字符串切片
     global dataSK
-    dataSK = json.loads(target)
+    dataSK = json.loads(target) # json得到字典
 
 if __name__ == '__main__':
     while True:
